@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.gamerboysxdcrimejsate'
+version '1.0-SNAPSHOT'
+
+// Ensure we use Java 8 as required for Minecraft 1.8.9
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://libraries.minecraft.net' }
+    maven { url 'https://repo.spongepowered.org' }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // Standard Minecraft 1.8.9 Libraries
+    implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'com.google.guava:guava:17.0'
+    implementation 'commons-io:commons-io:2.4'
+    implementation 'org.apache.commons:commons-lang3:3.3.2'
+    implementation 'org.apache.logging.log4j:log4j-api:2.0-beta9'
+    implementation 'org.apache.logging.log4j:log4j-core:2.0-beta9'
+    
+    // LWJGL (Graphics & Input)
+    implementation 'org.lwjgl.lwjgl:lwjgl:2.9.4-nightly-20150209'
+    implementation 'org.lwjgl.lwjgl:lwjgl_util:2.9.4-nightly-20150209'
+    
+    // Netty (Networking)
+    implementation 'io.netty:netty-all:4.0.23.Final'
+}
+
+// Ensure the JAR includes everything and is named correctly
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.github.gamerboysxdcrimejsate.crystalclientv1.Client',
+            'Implementation-Title': 'CrystalClientV1',
+            'Implementation-Version': project.version
+        )
+    }
+}
+
+// Custom task to copy everything into the final JAR (Fat JAR)
+tasks.register('fatJar', Jar) {
+    archiveClassifier.set('all')
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
