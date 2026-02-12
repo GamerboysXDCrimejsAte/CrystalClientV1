@@ -1,3 +1,4 @@
+package com.github.gamerboysxdcrimejsate.crystalclientv1;
 package src;
 
 import org.lwjgl.input.Keyboard;
