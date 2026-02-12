@@ -1,3 +1,4 @@
+package com.github.gamerboysxdcrimejsate.crystalclientv1;
 public class ClickGUI extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
