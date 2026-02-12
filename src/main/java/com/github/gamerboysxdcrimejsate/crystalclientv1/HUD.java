@@ -1,3 +1,4 @@
+package com.github.gamerboysxdcrimejsate.crystalclientv1;
 // Inside the render method
 int yOffset = 2;
 // 1. Watermark
